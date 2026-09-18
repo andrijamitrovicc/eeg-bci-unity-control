@@ -73,6 +73,36 @@ Main features include:
 
 The player is represented by a rolling ball and must move through the level while avoiding obstacles and collecting items.
 
+## Screenshots
+
+### Main Menu
+
+The game includes a simple main menu for starting or exiting the application.
+
+![Main Menu](images/main-menu.png)
+
+### Gameplay
+
+During gameplay, the player controls a rolling ball while avoiding obstacles and collecting items.
+
+The interface displays the current score and active input mode.
+
+![Gameplay](images/gameplay.png)
+
+### Victory Screen
+
+The player wins after collecting the required number of collectibles.
+
+The victory screen allows the player to restart the game or return to the main menu.
+
+![Victory Screen](images/victory-screen.png)
+
+### Unity Editor
+
+The project was developed in Unity using separate game objects, scripts, UI elements and an LSL manager for external BCI communication.
+
+![Unity Editor](images/unity-editor.png)
+
 ## Controls
 
 ### Keyboard Mode
