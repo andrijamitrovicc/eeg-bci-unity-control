@@ -18,10 +18,22 @@ Keyboard controls are also available as an alternative input method, allowing th
 EEG Signal
     |
     v
-BCI Processing / Classification
+OpenViBE Acquisition
+    |
+    v
+Signal Processing
+    |
+    v
+CSP Feature Extraction
+    |
+    v
+BCI Classification
     |
     v
 Lab Streaming Layer (LSL)
+    |
+    v
+NeuroDriveCommand
     |
     v
 Unity LSL Input
@@ -32,22 +44,43 @@ Player Movement
 
 ## BCI and EEG Integration
 
-The BCI part of the project is responsible for processing EEG-based input and converting it into control commands.
+The BCI part of the project is implemented using **OpenViBE** and is responsible for acquiring EEG data, processing the signal, training the CSP spatial filter and classifier, and generating real-time control commands.
 
-The project involved:
+The OpenViBE workflow is divided into four main stages:
 
-- EEG-based input
-- Brain-Computer Interface processing
-- CSP-based classification experiments
-- OpenViBE
-- Real-time communication using Lab Streaming Layer
-- Integration of BCI output with Unity
+1. EEG acquisition
+2. CSP training
+3. Classifier training
+4. Online classification
+
+The online OpenViBE scenario sends the resulting control command to Unity through **Lab Streaming Layer (LSL)**.
 
 Unity listens for an LSL stream named:
 
 ```text
 NeuroDriveCommand
+The received values are interpreted as movement commands for the player.
+Detailed information about the OpenViBE pipeline, scenarios and configuration files is available in:
+
+openvibe/README.md
 ```
+
+## OpenViBE Pipeline
+
+The OpenViBE part of the project contains the complete BCI workflow used during development:
+
+- EEG acquisition scenario
+- CSP spatial filter training
+- Classifier training
+- Real-time online classification
+- Configuration files generated during training
+- Lua scripts used by the OpenViBE scenarios
+
+The online scenario provides the control output that is transmitted to Unity through LSL.
+
+For detailed documentation, see:
+
+[`openvibe/README.md`](openvibe/README.md)
 
 The received values are interpreted as movement commands for the player.
 
@@ -148,7 +181,7 @@ Additional controls:
 
 ```text
 eeg-bci-unity-control/
-|
+│
 ├── Assets/
 │   ├── Scripts/
 │   ├── Scenes/
@@ -158,6 +191,25 @@ eeg-bci-unity-control/
 │
 ├── Packages/
 ├── ProjectSettings/
+│
+├── openvibe/
+│   ├── scenarios/
+│   │   ├── mi-csp-1-acquisition.xml
+│   │   ├── mi-csp-2-train-CSP.xml
+│   │   ├── mi-csp-3-classifier-trainer.xml
+│   │   └── mi-csp-4-online.xml
+│   │
+│   ├── config/
+│   │   ├── csp-spatial-filter.cfg
+│   │   └── motor-imagery-bci-config-classifier.cfg
+│   │
+│   ├── scripts/
+│   │   ├── motor-imagery-bci-epoch-selector.lua
+│   │   └── motor-imagery-bci-graz-stimulator.lua
+│   │
+│   └── README.md
+│
+├── images/
 ├── .gitignore
 └── README.md
 ```
